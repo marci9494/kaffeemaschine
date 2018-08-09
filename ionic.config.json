@@ -1,0 +1,8 @@
+{
+  "name": "kaffeemaschine",
+  "app_id": "b49e1235",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
