@@ -7,22 +7,19 @@
 
 <ion-content class="card-background-page">
 
-  <ion-card (click)='order("espresso")'>
-    <img src="img/espresso.png"/>
-    <div class="card-title">Espresso</div>
-    <div class="card-subtitle">Hier hats noch platz</div>
+  <ion-card *ngFor="let beverage of beverageList" (click)='order(beverage.id)'>
+    <img *ngIf="beverage.id == 1" src="img/espresso.png"/>
+    <img *ngIf="beverage.id == 2" src="img/cappuccino.png"/>
+    <img *ngIf="beverage.id == 3" src="img/caffeecreme.jpg"/>
+    <img *ngIf="beverage.id == 4" src="img/latte.png"/>
+    <img *ngIf="beverage.id == 5" src="img/espresso.png"/>
+    <img *ngIf="beverage.id == 6" src="img/espresso.png"/>
+    <img *ngIf="beverage.id == 7" src="img/espresso.png"/>
+    
+    <div class="card-title">{{beverage.name}}</div>
+    <div class="card-subtitle">{{beverage.id}}</div>
   </ion-card>
 
-  <ion-card>
-    <img src="img/coffee.png"/>
-    <div class="card-title">Schwarzer Kaffe</div>
-    <div class="card-subtitle">Hier hats noch platz</div>
-  </ion-card>
-  
-    <ion-card>
-    <img src="img/cappuccino.png"/>
-    <div class="card-title">Cappuccino</div>
-    <div class="card-subtitle">Hier hats noch platz</div>
-  </ion-card>
+ 
 
 </ion-content>

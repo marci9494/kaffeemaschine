@@ -23,5 +23,26 @@ export class RestProvider {
         });
     });
   }
+    listBeverages() {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/listBeverages').subscribe(data => {
+        resolve(data);
+      },
+        err => {
+          console.log(err);
+        });
+    });
+  }
+
+  orderBeverage(id) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/orderBeverage?id=' + id).subscribe(data => {
+        resolve(data);
+      },
+        err => {
+          console.log(err);
+        });
+    });
+  }
 
 }
