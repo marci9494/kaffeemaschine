@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import {RestProvider} from '../../providers/rest/rest';
-import { AlertController } from 'ionic-angular';
+import {AlertController} from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -13,16 +13,30 @@ export class HomePage {
 
   status: any;
   beverageList: any;
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider,public alertCtrl: AlertController) {
+  userId: any;
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController) {
 
     //wieder einkommentieren
-//    this.restProvider.listBeverages().then(data => {
-//      this.beverageList = data;
-//      console.log(this.beverageList);
-//    });
+    //    this.restProvider.listBeverages().then(data => {
+    //      this.beverageList = data;
+    //      console.log(this.beverageList);
+    //    });
 
-      //Dummy if Emtpy
-      this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Cafe Creme", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 7}];
+    //Dummy if Emtpy
+    this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Cafe Creme", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 7}];
+
+
+
+
+    this.userId = localStorage.getItem('userId');
+    if (this.userId == null || this.userId == "") {
+      //      console.log("userid=null");
+      this.userId = this.uuidv4();
+      localStorage.setItem('userId', this.userId);
+      //      
+    }
+
+    console.log(this.userId);
 
   }
   order(id) {
@@ -48,9 +62,11 @@ export class HomePage {
       });
   }
   orderBeverage(id) {
-    this.restProvider.orderBeverage(id);
+    //Fehler behebung
+    console.log(this.restProvider.orderBeverage(id, this.userId));
     this.showAlert();
   }
+
   listBeverage() {
     let loading = this.presentLoading();
     this.restProvider.listBeverages()
@@ -70,6 +86,13 @@ export class HomePage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 
 

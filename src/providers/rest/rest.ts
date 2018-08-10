@@ -34,15 +34,17 @@ export class RestProvider {
     });
   }
 
-  orderBeverage(id) {
-    return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/orderBeverage?id=' + id).subscribe(data => {
-        resolve(data);
-      },
-        err => {
-          console.log(err);
-        });
-    });
+  orderBeverage(id,userId) {
+    return this.http.get(this.apiUrl + '/orderBeverage?id=' + id + '&userID='+userId);
+    
+//    return new Promise(resolve => {
+//      this.http.get(this.apiUrl + '/orderBeverage?id=' + id + '&userID='+userId).subscribe(data => {
+//        resolve(data);
+//      },
+//        err => {
+//          console.log(err);
+//        });
+//    });
   }
 
 }
