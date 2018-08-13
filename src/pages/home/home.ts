@@ -3,6 +3,8 @@ import {NavController} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import {RestProvider} from '../../providers/rest/rest';
 import {AlertController} from 'ionic-angular';
+import {AboutPage} from '../about/about'
+
 
 @Component({
   selector: 'page-home',
@@ -14,7 +16,7 @@ export class HomePage {
   status: any;
   beverageList: any;
   userId: any;
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController,) {
 
     //wieder einkommentieren
     //    this.restProvider.listBeverages().then(data => {
@@ -23,7 +25,7 @@ export class HomePage {
     //    });
 
     //Dummy if Emtpy
-    this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Cafe Creme", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 7}];
+    this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Cafe Creme", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 8}];
 
 
 
@@ -65,6 +67,7 @@ export class HomePage {
     //Fehler behebung
     console.log(this.restProvider.orderBeverage(id, this.userId));
     this.showAlert();
+    this.navCtrl.push(AboutPage);
   }
 
   listBeverage() {
