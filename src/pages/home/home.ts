@@ -16,7 +16,7 @@ export class HomePage {
   status: any;
   beverageList: any;
   userId: any;
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController,) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController, ) {
 
     //wieder einkommentieren
     //    this.restProvider.listBeverages().then(data => {
@@ -65,9 +65,17 @@ export class HomePage {
   }
   orderBeverage(id) {
     //Fehler behebung
-    console.log(this.restProvider.orderBeverage(id, this.userId));
-    this.showAlert();
-    this.navCtrl.push(AboutPage);
+
+
+
+
+    this.restProvider.orderBeverage(id, this.userId).then((results) => {
+      console.log(results);
+      this.showAlert();
+      this.navCtrl.push(AboutPage);
+    });
+
+
   }
 
   listBeverage() {

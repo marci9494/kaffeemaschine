@@ -14,37 +14,46 @@ export class RestProvider {
     console.log('Hello RestProvider Provider');
   }
   getStatus() {
-    return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/getStatus').subscribe(data => {
-        resolve(data);
-      },
-        err => {
-          console.log(err);
-        });
-    });
+    try {
+      return new Promise(resolve => {
+        this.http.get(this.apiUrl + '/getStatus').subscribe(data => {
+          resolve(data);
+        },
+          err => {
+            console.log(err);
+          });
+      });
+    } catch (err) {
+      return null;
+    }
   }
-    listBeverages() {
-    return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/listBeverages').subscribe(data => {
-        resolve(data);
-      },
-        err => {
-          console.log(err);
-        });
-    });
+  listBeverages() {
+    try {
+      return new Promise(resolve => {
+        this.http.get(this.apiUrl + '/listBeverages').subscribe(data => {
+          resolve(data);
+        },
+          err => {
+            console.log(err);
+          });
+      });
+
+    } catch (err) {
+      return null;
+    }
   }
 
-  orderBeverage(id,userId) {
-    return this.http.get(this.apiUrl + '/orderBeverage?id=' + id + '&userID='+userId);
-    
-//    return new Promise(resolve => {
-//      this.http.get(this.apiUrl + '/orderBeverage?id=' + id + '&userID='+userId).subscribe(data => {
-//        resolve(data);
-//      },
-//        err => {
-//          console.log(err);
-//        });
-//    });
+  orderBeverage(id, userId) {
+    //TODO Userid übergeben
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/orderBeverage?productID=' + id).subscribe(data => {
+        resolve(data);
+      },
+        err => {
+          console.log(err);
+          return null;
+        });
+    });
   }
 
 }
