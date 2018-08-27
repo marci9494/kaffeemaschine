@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
+import { OrderPage } from '../pages/order/order';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HttpClientModule } from "@angular/common/http";
 
@@ -19,7 +20,8 @@ import { RestProvider } from '../providers/rest/rest';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    OrderPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { RestProvider } from '../providers/rest/rest';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    OrderPage
   ],
   providers: [
     StatusBar,

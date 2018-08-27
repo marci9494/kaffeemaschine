@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Bestellen
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<ion-item>
+  <ion-label>Start Time</ion-label>
+  <ion-datetime displayFormat="D.MM.YYYY H:mm" pickerFormat="D MM YYYY H mm" [(ngModel)]="dateTimeNow"></ion-datetime>
+</ion-item>
+<ion-list>
+  <ion-item>
+    <ion-label>Anzahl</ion-label>
+    <ion-select [(ngModel)]="anzahlKaffe" interface="popover">
+      <ion-option value="1">1</ion-option>
+      <ion-option value="2">2</ion-option>
+      <ion-option value="3">3</ion-option>
+      <ion-option value="4">4</ion-option>
+      <ion-option value="5">5</ion-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+
+<button ion-button full (click)='order(coffeId)'>Bestellen</button>
+</ion-content>
+
