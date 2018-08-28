@@ -16,7 +16,7 @@ export class HomePage {
   status: any;
   beverageList: any;
   userId: any;
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController, ) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController ) {
 
 //    wieder einkommentieren
 //        this.restProvider.listBeverages().then(data => {

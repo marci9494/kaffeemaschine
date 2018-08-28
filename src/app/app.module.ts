@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
+import { StatusPage } from '../pages/status/status';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { OrderPage } from '../pages/order/order';
@@ -17,7 +17,7 @@ import { RestProvider } from '../providers/rest/rest';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    StatusPage,
     ContactPage,
     HomePage,
     TabsPage,
@@ -31,7 +31,7 @@ import { RestProvider } from '../providers/rest/rest';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
+    StatusPage,
     ContactPage,
     HomePage,
     TabsPage,

@@ -46,7 +46,7 @@ export class RestProvider {
   orderBeverage(id, userId) {
     //TODO Userid übergeben
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/orderBeverage?productID=' + id).subscribe(data => {
+      this.http.get(this.apiUrl + '/orderBeverage?productID=' + id + '&userID=' + userId).subscribe(data => {
         resolve(data);
       },
         err => {
@@ -55,5 +55,19 @@ export class RestProvider {
         });
     });
   }
+  getOrderStatus(uuid) {
+    try {
+      return new Promise(resolve => {
+        this.http.get(this.apiUrl + '/getStatus?uuid=' + uuid).subscribe(data => {
+          resolve(data);
+        },
+          err => {
+            console.log(err);
+          });
+      });
 
+    } catch (err) {
+      return null;
+    }
+  }
 }
