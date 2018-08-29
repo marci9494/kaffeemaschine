@@ -16,13 +16,12 @@ export class HomePage {
   status: any;
   beverageList: any;
   userId: any;
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController ) {
-
-//    wieder einkommentieren
-//        this.restProvider.listBeverages().then(data => {
-//          this.beverageList = data;
-//          console.log(this.beverageList);
-//        });
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController) {
+    //    wieder einkommentieren
+    //        this.restProvider.listBeverages().then(data => {
+    //          this.beverageList = data;
+    //          console.log(this.beverageList);
+    //        });
 
     //Dummy if Emtpy
     this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Milchschaum", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 8}];
@@ -65,21 +64,21 @@ export class HomePage {
   }
   orderBeverage(id) {
     //Fehler behebung
-    
-    this.navCtrl.push(OrderPage,{
-      
-      id:id,
-      beverageList : this.beverageList
-      });
 
-//    this.restProvider.orderBeverage(id, this.userId).then((results: string) => {
-//      console.log(results);
-//      localStorage.setItem('lastOrder', results);
-//      this.showAlert("In Zubereitung","Die gewünsche bestellung ist aufgegeben");
-//      
-//    }), function() {
-//       this.showAlert("Fehler","Ein unbekannter Fehler ist aufgetreten");
-//    };
+    this.navCtrl.push(OrderPage, {
+
+      id: id,
+      beverageList: this.beverageList
+    });
+
+    //    this.restProvider.orderBeverage(id, this.userId).then((results: string) => {
+    //      console.log(results);
+    //      localStorage.setItem('lastOrder', results);
+    //      this.showAlert("In Zubereitung","Die gewünsche bestellung ist aufgegeben");
+    //      
+    //    }), function() {
+    //       this.showAlert("Fehler","Ein unbekannter Fehler ist aufgetreten");
+    //    };
 
 
   }
@@ -96,7 +95,7 @@ export class HomePage {
     loading.dismiss();
   }
 
-  showAlert(title,subTitle) {
+  showAlert(title, subTitle) {
     const alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,

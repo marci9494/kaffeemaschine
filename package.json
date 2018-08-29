@@ -37,14 +37,14 @@
     "install": "^0.12.1",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "npm": "^5.10.0",
+    "npm": "^5.6.0",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.11",
-    "angular-ide": "^0.9.43",
+    "angular-ide": "^0.9.44",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",
