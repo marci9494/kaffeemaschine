@@ -70,4 +70,35 @@ export class RestProvider {
       return null;
     }
   }
+
+  getEstimatedTime(uuid) {
+    try {
+      return new Promise(resolve => {
+        this.http.get(this.apiUrl + '/getEstimatedTime?uuid=' + uuid).subscribe(data => {
+          resolve(data);
+        },
+          err => {
+            console.log(err);
+          });
+      });
+
+    } catch (err) {
+      return null;
+    }
+  }
+  deleteOrder(uuid) {
+    try {
+      return new Promise(resolve => {
+        this.http.get(this.apiUrl + '/deleteBeverage?uuid=' + uuid).subscribe(data => {
+          resolve(data);
+        },
+          err => {
+            console.log(err);
+          });
+      });
+
+    } catch (err) {
+      return null;
+    }
+  }
 }
