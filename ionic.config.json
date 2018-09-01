@@ -1,8 +1,16 @@
 {
-  "name": "kaffeemaschine",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "ionic-angular",
-  "pro_id": "b49e1235"
+	"name": "kaffeemaschine",
+	"type": "ionic-angular",
+	"pro_id": "b49e1235",
+	"integrations": {
+		"cordova": {
+			
+		}
+	},
+	"proxies": [
+		{
+			"path": "/api",
+			"proxyUrl": "http://192.168.178.105:5000/"
+		}
+	]
 }

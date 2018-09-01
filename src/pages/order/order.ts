@@ -27,11 +27,13 @@ export class OrderPage {
   order(id) {
     let loader = this.presentLoading();
     loader.present();
+    console.log("order ausgeführt");
     this.restProvider.orderBeverage(id, this.userId).then((results: string) => {
+      console.log("ergebniss");
       console.log(results["uuid"]);
       localStorage.setItem('lastOrder', results["uuid"]);
       loader.dismiss();
-      
+      console.log(results);
       this.restProvider.getOrderStatus(results["uuid"]).then((result: string) => {
         let deliveryDate = new Date(result["deliveryDate"]);
         console.log(deliveryDate.toLocaleTimeString());

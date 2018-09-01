@@ -18,13 +18,10 @@ export class HomePage {
   userId: any;
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController) {
     //    wieder einkommentieren
-//            this.restProvider.listBeverages().then(data => {
-//              this.beverageList = data;
-//              console.log(this.beverageList);
-//            });
+    this.listBeverages();
 
     //Dummy if Emtpy
-    this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Milchschaum", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 8}];
+    //    this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Milchschaum", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 8}];
 
 
 
@@ -111,6 +108,13 @@ export class HomePage {
     });
   }
 
+  listBeverages() {
+    this.restProvider.listBeverages().then(data => {
+      console.log("erfolgreich!!");
+      this.beverageList = data;
+      console.log(this.beverageList);
+    });
+  }
 
 }
 

@@ -9,7 +9,7 @@ import {Injectable} from '@angular/core';
 */
 @Injectable()
 export class RestProvider {
-  apiUrl = 'http://localhost:5000';
+  apiUrl = 'http://192.168.178.105:5000';
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
   }
@@ -28,20 +28,20 @@ export class RestProvider {
     }
   }
   listBeverages() {
-    try {
-      return new Promise(resolve => {
-        this.http.get(this.apiUrl + '/listBeverages').subscribe(data => {
-          resolve(data);
-        },
-          err => {
-            console.log(err);
-          });
-      });
 
-    } catch (err) {
-      return null;
-    }
+
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/listBeverages').subscribe(data => {
+        resolve(data);
+      },
+        err => {
+          console.log("unbekannter fehler");
+        });
+    });
   }
+
+
+
 
   orderBeverage(id, userId) {
     //TODO Userid übergeben
@@ -51,14 +51,14 @@ export class RestProvider {
       },
         err => {
           console.log(err);
-          return null;
         });
     });
+
   }
   getOrderStatus(uuid) {
     try {
       return new Promise(resolve => {
-        this.http.get(this.apiUrl + '/getStatus?uuid=' + uuid).subscribe(data => {
+        this.http.get(this.apiUrl + '/getStatus?uuid=aaae8023-3d93-4e99-800b-05e26491a234').subscribe(data => {
           resolve(data);
         },
           err => {
