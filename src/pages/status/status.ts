@@ -13,16 +13,16 @@ export class StatusPage {
   currentOrderUuid: any;
   allOrders: any;
   constructor(public navCtrl: NavController, public restProvider: RestProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
-    this.currentOrderUuid = localStorage.getItem('lastOrder');
-    this.restProvider.getOrderStatus(this.currentOrderUuid).then((results: string) => {
-      console.log(results);
-      this.allOrders = [];
-      this.allOrders.push(results);
-
-
-    }), function() {
-      //Errorcode
-    };
+//    this.currentOrderUuid = localStorage.getItem('lastOrder');
+//    this.restProvider.getOrderStatus(this.currentOrderUuid).then((results: string) => {
+//      console.log(results);
+//      this.allOrders = [];
+//      this.allOrders.push(results);
+//
+//
+//    }), function() {
+//      //Errorcode
+//    };
   }
 
 
@@ -51,14 +51,14 @@ export class StatusPage {
   deleteOrder(orderId){
     let loader = this.presentLoading();
     loader.present();
-    console.log("loeschen" + orderId);
-        this.restProvider.deleteOrder(orderId).then((results: string) => {
-      loader.dismiss();
-    
-
-    }), function() {
-      //Errorcode
-    };
+//    console.log("loeschen" + orderId);
+//        this.restProvider.deleteOrder(orderId).then((results: string) => {
+//      loader.dismiss();
+//    
+//
+//    }), function() {
+//      //Errorcode
+//    };
     
   }
   

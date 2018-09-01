@@ -4,6 +4,8 @@ import {LoadingController} from 'ionic-angular';
 import {RestProvider} from '../../providers/rest/rest';
 import {AlertController} from 'ionic-angular';
 import {OrderPage} from '../order/order'
+import {HTTP} from '@ionic-native/http';
+import {Platform} from 'ionic-angular';
 
 
 @Component({
@@ -16,9 +18,43 @@ export class HomePage {
   status: any;
   beverageList: any;
   userId: any;
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController) {
+  apiUrl = 'http://192.168.179.105:5000';
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController, private nativeHttp: HTTP, private platform: Platform) {
     //    wieder einkommentieren
-    this.listBeverages();
+    //    this.platform.ready().then(() => {
+    //    console.log("blbub")
+//    this.platform.ready().then(() => {
+//      console.log("is ready!");
+      //      this.http.get('http://192.168.179.105:5000/listBeverages',{},{})
+//      
+//      this.beverageList = this.restProvider.listBeverages();
+//      console.log(this.beverageList);
+//      // subscribe logic goes here
+//    });
+
+    this.platform.ready().then(() => {
+      this.nativeHttp.get('http://192.168.178.105:5000/listBeverages', {}, {}).then((data) => {
+        console.log(data.data);
+        this.beverageList = JSON.parse(data.data);
+        console.log(this.beverageList);
+      });
+    });
+
+    //    });
+    //       this.http.get(this.apiUrl + '/listBeverages', {}, {})
+    //      .then(data => {
+    //
+    //        console.log(data);
+    //        console.log(data.data); // data received by server
+    //        console.log(data.headers);
+    //
+    //      })
+    //      .catch(error => {
+    //
+    //        console.log(error.status);
+    //        console.log(error.error); // error message as string
+    //        console.log(error.headers);
+    //      });
 
     //Dummy if Emtpy
     //    this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Milchschaum", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 8}];
@@ -53,11 +89,11 @@ export class HomePage {
   }
 
   getStatus() {
-    this.restProvider.getStatus()
-      .then(data => {
-        this.status = data;
-        console.log(this.status);
-      });
+    //    this.restProvider.getStatus()
+    //      .then(data => {
+    //        this.status = data;
+    //        console.log(this.status);
+    //      });
   }
   orderBeverage(id) {
     //Fehler behebung
@@ -82,12 +118,12 @@ export class HomePage {
 
   listBeverage() {
     let loading = this.presentLoading();
-    this.restProvider.listBeverages()
-      .then(data => {
-        this.beverageList = data;
-        console.log(this.beverageList);
-
-      });
+    //    this.restProvider.listBeverages()
+    //      .then(data => {
+    //        this.beverageList = data;
+    //        console.log(this.beverageList);
+    //
+    //      });
 
     loading.dismiss();
   }
@@ -109,11 +145,11 @@ export class HomePage {
   }
 
   listBeverages() {
-    this.restProvider.listBeverages().then(data => {
-      console.log("erfolgreich!!");
-      this.beverageList = data;
-      console.log(this.beverageList);
-    });
+//        this.restProvider.listBeverages().then(data => {
+//          console.log("erfolgreich!!");
+//          this.beverageList = data;
+//          console.log(this.beverageList);
+//        });
   }
 
 }

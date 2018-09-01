@@ -28,29 +28,29 @@ export class OrderPage {
     let loader = this.presentLoading();
     loader.present();
     console.log("order ausgeführt");
-    this.restProvider.orderBeverage(id, this.userId).then((results: string) => {
-      console.log("ergebniss");
-      console.log(results["uuid"]);
-      localStorage.setItem('lastOrder', results["uuid"]);
-      loader.dismiss();
-      console.log(results);
-      this.restProvider.getOrderStatus(results["uuid"]).then((result: string) => {
-        let deliveryDate = new Date(result["deliveryDate"]);
-        console.log(deliveryDate.toLocaleTimeString());
-      this.showAlert("In Zubereitung", "Die gewünsche Bestellung ist am  " + deliveryDate.toLocaleDateString() + " um " + deliveryDate.toLocaleTimeString() + " abholbereit");
-      this.navCtrl.pop();
-      this.navCtrl.parent.select(1);
-      });
-    
+//    this.restProvider.orderBeverage(id, this.userId).then((results: string) => {
+//      console.log("ergebniss");
+//      console.log(results["uuid"]);
+//      localStorage.setItem('lastOrder', results["uuid"]);
+//      loader.dismiss();
+//      console.log(results);
+//      this.restProvider.getOrderStatus(results["uuid"]).then((result: string) => {
+//        let deliveryDate = new Date(result["deliveryDate"]);
+//        console.log(deliveryDate.toLocaleTimeString());
+//      this.showAlert("In Zubereitung", "Die gewünsche Bestellung ist am  " + deliveryDate.toLocaleDateString() + " um " + deliveryDate.toLocaleTimeString() + " abholbereit");
+//      this.navCtrl.pop();
+//      this.navCtrl.parent.select(1);
+//      });
+//    
       
       
       
       
 
-    }), function() {
-      loader.dismiss();
-      this.showAlert("Fehler", "Ein unbekannter Fehler ist aufgetreten");
-    };
+//    }), function() {
+//      loader.dismiss();
+//      this.showAlert("Fehler", "Ein unbekannter Fehler ist aufgetreten");
+//    };
     
   }
   
