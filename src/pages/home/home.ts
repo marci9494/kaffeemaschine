@@ -18,43 +18,19 @@ export class HomePage {
   status: any;
   beverageList: any;
   userId: any;
-  apiUrl = 'http://192.168.179.105:5000';
+  apiUrl : any;
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController, private nativeHttp: HTTP, private platform: Platform) {
-    //    wieder einkommentieren
-    //    this.platform.ready().then(() => {
-    //    console.log("blbub")
-//    this.platform.ready().then(() => {
-//      console.log("is ready!");
-      //      this.http.get('http://192.168.179.105:5000/listBeverages',{},{})
-//      
-//      this.beverageList = this.restProvider.listBeverages();
-//      console.log(this.beverageList);
-//      // subscribe logic goes here
-//    });
 
     this.platform.ready().then(() => {
-      this.nativeHttp.get('http://192.168.178.105:5000/listBeverages', {}, {}).then((data) => {
-        console.log(data.data);
+      
+      let apiUrl = 'http://192.168.178.105:5000' + '/listBeverages';
+      this.nativeHttp.get(apiUrl , {}, {}).then((data) => {
         this.beverageList = JSON.parse(data.data);
-        console.log(this.beverageList);
+      }).catch((err) => {
+        console.log(err);
+        this.showAlert("Fehler","Bitte an den Administrator wenden");
       });
     });
-
-    //    });
-    //       this.http.get(this.apiUrl + '/listBeverages', {}, {})
-    //      .then(data => {
-    //
-    //        console.log(data);
-    //        console.log(data.data); // data received by server
-    //        console.log(data.headers);
-    //
-    //      })
-    //      .catch(error => {
-    //
-    //        console.log(error.status);
-    //        console.log(error.error); // error message as string
-    //        console.log(error.headers);
-    //      });
 
     //Dummy if Emtpy
     //    this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Milchschaum", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 8}];
@@ -88,13 +64,7 @@ export class HomePage {
     return loading;
   }
 
-  getStatus() {
-    //    this.restProvider.getStatus()
-    //      .then(data => {
-    //        this.status = data;
-    //        console.log(this.status);
-    //      });
-  }
+ 
   orderBeverage(id) {
     //Fehler behebung
 
@@ -104,28 +74,8 @@ export class HomePage {
       beverageList: this.beverageList
     });
 
-    //    this.restProvider.orderBeverage(id, this.userId).then((results: string) => {
-    //      console.log(results);
-    //      localStorage.setItem('lastOrder', results);
-    //      this.showAlert("In Zubereitung","Die gewünsche bestellung ist aufgegeben");
-    //      
-    //    }), function() {
-    //       this.showAlert("Fehler","Ein unbekannter Fehler ist aufgetreten");
-    //    };
 
 
-  }
-
-  listBeverage() {
-    let loading = this.presentLoading();
-    //    this.restProvider.listBeverages()
-    //      .then(data => {
-    //        this.beverageList = data;
-    //        console.log(this.beverageList);
-    //
-    //      });
-
-    loading.dismiss();
   }
 
   showAlert(title, subTitle) {
@@ -144,13 +94,7 @@ export class HomePage {
     });
   }
 
-  listBeverages() {
-//        this.restProvider.listBeverages().then(data => {
-//          console.log("erfolgreich!!");
-//          this.beverageList = data;
-//          console.log(this.beverageList);
-//        });
-  }
+
 
 }
 

@@ -49,4 +49,5 @@ import { Platform } from 'ionic-angular';
     RestProvider
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

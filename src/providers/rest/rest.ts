@@ -10,7 +10,7 @@ import {HTTP} from '@ionic-native/http';
 */
 @Injectable()
 export class RestProvider {
-  apiUrl = 'http://192.168.179.105:5000';
+   public apiUrl = 'http://192.168.179.105:5000'
   constructor(private nativeHttp: HTTP) {
     console.log('Hello RestProvider Provider');
   }
