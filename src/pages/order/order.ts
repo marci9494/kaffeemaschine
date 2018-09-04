@@ -17,7 +17,7 @@ export class OrderPage {
   dateTimeNow: any;
   anzahlKaffe: any;
   userId: any;
-  apiUrl: 'http://192.168.179.105:5000';
+  apiUrl: 'http://192.168.100.2:5000';
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeHttp: HTTP) {
     this.coffeId = this.navParams.get('id');
     this.beverageList = this.navParams.get('beverageList');
@@ -30,18 +30,30 @@ export class OrderPage {
     let loader = this.presentLoading();
     loader.present();
     console.log("order ausgeführt");
-    let apiOrderBeverage = 'http://192.168.178.105:5000' + '/orderBeverage?productID=' + id + '&userID=' + this.userId
-
+    let apiOrderBeverage = 'http://192.168.100.2:5000' + '/orderBeverage?productID=' + id + '&userID=' + this.userId + "&date=" + this.dateTimeNow
+    console.log("Order " + id + "ausgeführt")
     this.nativeHttp.get(apiOrderBeverage, {}, {}).then((data) => {
-      console.log(data.data);
+      console.log("Bestellung hat return wert")
       let result = JSON.parse(data.data);
+      let oldOrdersString = localStorage.getItem('orders');
+      if (oldOrdersString) {
+        let orders = JSON.parse(oldOrdersString);
+        orders.push(result["uuid"]);
+        let ordersString = JSON.stringify(orders);
+        localStorage.setItem("orders", ordersString);
+      } else {
+        let orders = [];
+        orders.push(result["uuid"]);
+        let ordersString = JSON.stringify(orders);
+        localStorage.setItem("orders", ordersString);
+      }
+
+
       localStorage.setItem('lastOrder', result["uuid"]);
-      let apigetStatus = 'http://192.168.178.105:5000' + '/getStatus?uuid=' + result["uuid"]
+      let apigetStatus = 'http://192.168.100.2:5000' + '/getStatus?uuid=' + result["uuid"]
       this.nativeHttp.get(apigetStatus, {}, {}).then((data) => {
-        console.log(data.data);
-        let result = JSON.parse(data.data);
-        localStorage.setItem('lastOrder', result["uuid"]);
-        let deliveryDate = new Date(result["deliveryDate"]);
+        let parsedResult = JSON.parse(data.data);
+        let deliveryDate = new Date(parsedResult["deliveryDate"]);
         this.showAlert("In Zubereitung", "Die gewünsche Bestellung ist am  " + deliveryDate.toLocaleDateString() + " um " + deliveryDate.toLocaleTimeString() + " abholbereit");
         this.navCtrl.pop();
         this.navCtrl.parent.select(1);
@@ -51,12 +63,14 @@ export class OrderPage {
       }).catch(err => {
         console.log(err);
         this.showAlert("Fehler", "Bitte an den Administrator wenden");
+        loader.dismiss();
       });
 
 
     }).catch(err => {
       console.log(err);
       this.showAlert("Fehler", "Bitte an den Administrator wenden");
+      loader.dismiss();
     });
 
   }
