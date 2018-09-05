@@ -10,18 +10,23 @@
 
 
 <ion-list *ngFor="let order of allOrders">
-
   <ion-item  >
-	
     <ion-icon name="timer" item-start></ion-icon>
-    <span *ngFor="let beverage of beverageList">
-    	<span *ngIf="beverage.id == order.productID">{{beverage.name}}</span>
-    </span>
-	
+	<ion-label>{{order.productName}}</ion-label>
+    <ion-datetime displayFormat="D.MM.YYYY H:mm" [(ngModel)]="order.deliveryDate"></ion-datetime>
     <ion-note item-end>
-      {{order.deliveryDate}}
       <ion-icon name="trash" item-start  (click)='showConfirm(order.uuid)'></ion-icon>
       </ion-note>
+  </ion-item>
+</ion-list>
+<span>Fertige:</span>
+<ion-list *ngFor="let finished of finishedOrders">
+  <ion-item  >
+    <ion-icon name="timer" item-start></ion-icon>
+	<ion-label>{{finished.productName}} - {{finished-tocoffeemachinetime}}</ion-label>
+    <ion-datetime displayFormat="D.MM.YYYY H:mm" [(ngModel)]="finished.tocoffeemachinetime"></ion-datetime>
+    <ion-note item-end></ion-note>
+      
   </ion-item>
 </ion-list>
 </ion-content>

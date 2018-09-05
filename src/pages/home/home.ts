@@ -26,6 +26,7 @@ export class HomePage {
       let apiUrl = 'http://192.168.100.2:5000' + '/listBeverages';
       this.nativeHttp.get(apiUrl , {}, {}).then((data) => {
         this.beverageList = JSON.parse(data.data);
+        localStorage.setItem("beverageList",JSON.stringify(this.beverageList));
       }).catch((err) => {
         console.log(err);
         this.showAlert("Fehler","Bitte an den Administrator wenden");
@@ -36,7 +37,7 @@ export class HomePage {
     //    this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Milchschaum", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 8}];
 
 
-    localStorage.setItem("beverageList",JSON.stringify(this.beverageList));
+    
     this.userId = localStorage.getItem('userId');
     if (this.userId == null || this.userId == "") {
       //      console.log("userid=null");
@@ -44,9 +45,7 @@ export class HomePage {
       localStorage.setItem('userId', this.userId);
       //      
     }
-
     console.log("user =  " + this.userId);
-
   }
   order(id) {
     let loading = this.presentLoading();

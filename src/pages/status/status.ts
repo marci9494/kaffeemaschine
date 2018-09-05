@@ -4,6 +4,7 @@ import {RestProvider} from '../../providers/rest/rest';
 import {AlertController} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import {HTTP} from '@ionic-native/http';
+import {NavParams} from 'ionic-angular';
 
 @Component({
   selector: 'page-status',
@@ -14,30 +15,73 @@ export class StatusPage {
   currentOrderUuid: any;
   allOrders: any;
   beverageList: any;
-  constructor(public navCtrl: NavController, public restProvider: RestProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeHttp: HTTP) {
+  finishedOrders: any[];
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeHttp: HTTP) {
     let ordersString = localStorage.getItem('orders');
-    console.log(ordersString);
+    console.log("ordersString = " + ordersString);
+    let updatedOrders = [];
+
     let orders = JSON.parse(ordersString);
-    console.log(orders);
-    console.log(localStorage.getItem("beverageList"));
-    console.log(JSON.parse(localStorage.getItem("beverageList")));
     this.beverageList = JSON.parse(localStorage.getItem("beverageList"));
-    this.allOrders = [];
-    for (let index = 0; index < orders.length; index++) {
-      let apiUrl = 'http://192.168.100.2:5000' + '/getStatus?uuid=' + orders[index];
-      this.nativeHttp.get(apiUrl, {}, {}).then((data) => {
-        this.allOrders.push(JSON.parse(data.data));
-      }).catch((err) => {
-        console.log(err);
-        this.showAlert("Fehler", "Bitte an den Administrator wenden");
-      });
+    if (!this.allOrders) {
+      this.allOrders = [];
+    }
+    this.finishedOrders = JSON.parse(localStorage.getItem("finishedOrders"));
+    if (!this.finishedOrders) {
+      this.finishedOrders = [];
     }
 
+    console.log("yes");
+    console.log(this.finishedOrders);
+
+
+    if (orders) {
+      for (let index = 0; index < orders.length; index++) {
+        let apiUrl = 'http://192.168.100.2:5000' + '/getDBInformation?uuid=' + orders[index];
+        this.nativeHttp.get(apiUrl, {}, {}).then((data) => {
+          let orderToAdd = JSON.parse(data.data);
+          if (orderToAdd) {
+            var y = +orderToAdd["coffee"];
+            orderToAdd["coffee"] = y;
+            for (let orderIndex = 0; orderIndex < this.beverageList.length; orderIndex++) {
+              if (orderToAdd["coffee"] == this.beverageList[orderIndex]["id"]) {
+                orderToAdd["productName"] = this.beverageList[orderIndex]["name"];
+              }
+            }
+
+            if (orderToAdd["tocoffeemachine"] === 1) {
+              this.finishedOrders.push(orderToAdd)
+
+            } else {
+              this.allOrders.push(orderToAdd);
+              updatedOrders.push(orderToAdd["uuid"]);
+            }
+          } else {
+            //order bekommt kein Status mehr. Loeschen
+            //TODO FROM DB information holen
+          }
+
+          this.saveInLocalStorage("orders", JSON.stringify(updatedOrders));
+          this.saveInLocalStorage("finishedOrders", JSON.stringify(this.finishedOrders));
+
+        }).catch((err) => {
+          console.log(err);
+          this.showAlert("Fehler", "Bitte an den Administrator wenden");
+        });
+      }
+    }
+
+
+    console.log("allOrders");
     console.log(this.allOrders);
-
-
   }
 
+  saveInLocalStorage(key, value) {
+
+    localStorage.removeItem(key);
+    localStorage.setItem(key, value);
+
+  }
 
   showConfirm(orderId) {
     const confirm = this.alertCtrl.create({
@@ -84,7 +128,15 @@ export class StatusPage {
     });
 
   }
-
+  ngOnInit() {
+    this.finishedOrders = JSON.parse(localStorage.getItem("finishedOrders"));
+    if (!this.finishedOrders) {
+      this.finishedOrders = [];
+    }
+  }
+  ionViewWillEnter(){
+    
+  }
   presentLoading() {
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
