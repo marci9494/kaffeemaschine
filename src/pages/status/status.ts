@@ -17,7 +17,7 @@ export class StatusPage {
   beverageList: any;
   finishedOrders: any[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeHttp: HTTP) {
-    
+
   }
 
   saveInLocalStorage(key, value) {
@@ -61,9 +61,9 @@ export class StatusPage {
           this.showAlert("Bestellung storniert", "Ihre Bestellung wurde Storniert");
           var orders = JSON.parse(localStorage.getItem('orders'));
           for (let i = 0; i < orders.length; i++) {
-            if(orders[i] === orderId){
-              orders.splice(i,1);
-              this.saveInLocalStorage("orders",JSON.stringify(orders));
+            if (orders[i] === orderId) {
+              orders.splice(i, 1);
+              this.saveInLocalStorage("orders", JSON.stringify(orders));
             }
           }
         }
@@ -84,9 +84,8 @@ export class StatusPage {
       this.finishedOrders = [];
     }
   }
-  ionViewWillEnter(){
-    let loader = this.presentLoading();
-    loader.present();
+  ionViewWillEnter() {
+
     let ordersString = localStorage.getItem('orders');
     let updatedOrders = [];
 
@@ -101,9 +100,8 @@ export class StatusPage {
 
 
     if (orders) {
-       for (let index = 0; index < orders.length; index++) {
-       
-       }
+      let loader = this.presentLoading();
+      loader.present();
       for (let index = 0; index < orders.length; index++) {
         let apiUrl = 'http://192.168.100.2:5000' + '/getDBInformation?uuid=' + orders[index];
         this.nativeHttp.get(apiUrl, {}, {}).then((data) => {
@@ -136,6 +134,9 @@ export class StatusPage {
           console.log(err);
           this.showAlert("Fehler", "Bitte an den Administrator wenden");
         });
+      }
+      if(orders.length == 0){
+        loader.dismiss();
       }
     }
 
