@@ -10,12 +10,12 @@
   <ion-card *ngFor="let beverage of beverageList" (click)='order(beverage.id)'>
     <img *ngIf="beverage.id == 1" src="img/espresso.png"/>
     <img *ngIf="beverage.id == 2" src="img/cappuccino.png"/>
-    <img *ngIf="beverage.id == 3" src="img/caffeecreme.jpg"/>
+    <img *ngIf="beverage.id == 3" src="img/cafecreme.png"/>
     <img *ngIf="beverage.id == 4" src="img/latte.png"/>
-    <img *ngIf="beverage.id == 5" src="img/schoko.jpg"/>
-    <img *ngIf="beverage.id == 6" src="img/espresso.png"/>
-    <img *ngIf="beverage.id == 7" src="img/espresso.png"/>
-    <img *ngIf="beverage.id == 8" src="img/espresso.png"/>
+    <img *ngIf="beverage.id == 5" src="img/schoko.png"/>
+    <img *ngIf="beverage.id == 6" src="img/milchkaffee.png"/>
+    <img *ngIf="beverage.id == 7" src="img/chociatto.png"/>
+    <img *ngIf="beverage.id == 8" src="img/milchschaum.png"/>
     
     
     <div class="card-title">{{beverage.name}}</div>

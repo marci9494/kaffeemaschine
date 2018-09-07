@@ -22,7 +22,6 @@ export class OrderPage {
     this.coffeId = this.navParams.get('id');
     this.beverageList = this.navParams.get('beverageList');
     this.dateTimeNow = this.toIsoString(new Date());
-    console.log(this.dateTimeNow);
     this.anzahlKaffe = 1;
     this.userId = localStorage.getItem('userId');
   }

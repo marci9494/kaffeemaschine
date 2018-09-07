@@ -8,24 +8,26 @@
 
 <ion-content padding>
 
-
-<ion-list *ngFor="let order of allOrders">
-  <ion-item  >
+<ion-label>Offene Bestellungen:</ion-label>
+<ion-list >
+  <ion-item *ngFor="let order of allOrders" >
     <ion-icon name="timer" item-start></ion-icon>
 	<ion-label>{{order.productName}}</ion-label>
-    <ion-datetime displayFormat="D.MM.YYYY H:mm" [(ngModel)]="order.deliveryDate"></ion-datetime>
+	<ion-label >{{order.deliveryDate | date: 'dd.MM HH:mm' }}</ion-label>
+	
     <ion-note item-end>
+    
       <ion-icon name="trash" item-start  (click)='showConfirm(order.uuid)'></ion-icon>
-      </ion-note>
+     </ion-note>
   </ion-item>
 </ion-list>
-<span>Fertige:</span>
-<ion-list *ngFor="let finished of finishedOrders">
-  <ion-item  >
-    <ion-icon name="timer" item-start></ion-icon>
-	<ion-label>{{finished.productName}} - {{finished-tocoffeemachinetime}}</ion-label>
-    <ion-datetime displayFormat="D.MM.YYYY H:mm" [(ngModel)]="finished.tocoffeemachinetime"></ion-datetime>
-    <ion-note item-end></ion-note>
+<ion-label>Abgeschlossene Bestellungen:</ion-label>
+<ion-list >
+  <ion-item  *ngFor="let finished of finishedOrders">
+    <ion-icon name="done-all" item-start></ion-icon>
+	<ion-label>{{finished.productName}} </ion-label>
+
+    <ion-note item-end><ion-label>{{finished.tocoffeemachinetime | date: 'dd.MM.yyyy HH:mm' }}</ion-label></ion-note>
       
   </ion-item>
 </ion-list>

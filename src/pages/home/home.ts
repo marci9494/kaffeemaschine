@@ -18,39 +18,38 @@ export class HomePage {
   status: any;
   beverageList: any;
   userId: any;
-  apiUrl : any;
+  apiUrl: any;
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public restProvider: RestProvider, public alertCtrl: AlertController, private nativeHttp: HTTP, private platform: Platform) {
 
     this.platform.ready().then(() => {
-      
+      let loading = this.presentLoading();
+      loading.present();
       let apiUrl = 'http://192.168.100.2:5000' + '/listBeverages';
-      this.nativeHttp.get(apiUrl , {}, {}).then((data) => {
+      this.nativeHttp.get(apiUrl, {}, {}).then((data) => {
         this.beverageList = JSON.parse(data.data);
-        localStorage.setItem("beverageList",JSON.stringify(this.beverageList));
+        localStorage.setItem("beverageList", JSON.stringify(this.beverageList));
+        loading.dismiss();
       }).catch((err) => {
         console.log(err);
-        this.showAlert("Fehler","Bitte an den Administrator wenden");
+        this.showAlert("Fehler", "Bitte an den Administrator wenden");
       });
     });
 
     //Dummy if Emtpy
-    //    this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Milchschaum", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 8}];
+//        this.beverageList = [{"name": "Espresso", "id": 1}, {"name": "Cappuccino", "id": 2}, {"name": "Milchschaum", "id": 3}, {"name": "Latte Macchiato", "id": 4}, {"name": "Milch-Choc", "id": 5}, {"name": "Milchkaffee", "id": 6}, {"name": "Chociatto", "id": 7}, {"name": "Milchschaum", "id": 8}];
 
 
-    
+
     this.userId = localStorage.getItem('userId');
     if (this.userId == null || this.userId == "") {
-      //      console.log("userid=null");
       this.userId = this.uuidv4();
       localStorage.setItem('userId', this.userId);
       //      
     }
-    console.log("user =  " + this.userId);
   }
   order(id) {
     let loading = this.presentLoading();
     loading.present();
-    console.log(id);
     this.orderBeverage(id);
     loading.dismiss();
   }
@@ -62,7 +61,7 @@ export class HomePage {
     return loading;
   }
 
- 
+
   orderBeverage(id) {
     //Fehler behebung
 
